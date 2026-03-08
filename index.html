@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" href="favicon_iva.ico" type="image/x-icon">
+    <link rel="icon" href="favicon_iva.ico" type="image/x-icon">
     <title>Мой рабочий кабинет</title>
     <style>
         body {
@@ -18,14 +18,15 @@
             color: white;
         }
         
-        h1 { margin-bottom: 40px; font-weight: 300; letter-spacing: 2px; }
+        h1 { margin-top: 40px; margin-bottom: 40px; font-weight: 300; letter-spacing: 2px; }
 
-        /* Сетка 2х2 */
+        /* Сетка: 3 колонки для десктопа */
         .container { 
             display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
+            grid-template-columns: repeat(3, 1fr); 
             gap: 25px; 
             padding: 20px;
+            max-width: 900px;
         }
 
         .card {
@@ -53,14 +54,19 @@
             height: 80px;
             margin-bottom: 15px;
             filter: drop-shadow(0 0 8px rgba(0,210,255,0.4));
+            object-fit: contain;
         }
 
         h2 { margin: 10px 0; font-size: 20px; font-weight: 400; }
         small { color: #aaa; }
 
-        /* Адаптивность для мобилок */
+        /* Адаптивность */
+        @media (max-width: 900px) {
+            .container { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 600px) {
             .container { grid-template-columns: 1fr; }
+            h1 { font-size: 24px; text-align: center; }
         }
     </style>
 </head>
@@ -82,21 +88,42 @@
     </div>
 
     <div class="card" onclick="openSite('https://infokom285.github.io/vostok/index.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/2092/2092663.png" alt="Site 3">
+        <img src="https://cdn-icons-png.flaticon.com/512/2092/2092663.png" alt="Parts">
         <h2>Запчасти</h2>
         <small>Сайт в рублях</small>
     </div>
 
     <div class="card" onclick="openSite('https://infokom285.github.io/vostok280/index.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Site 4">
+        <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Infokom">
         <h2>Инфоком</h2>
         <small>Сайт в евро</small>
     </div>
+
+    <div class="card" onclick="openSite('https://infokom285.github.io/vs/index.html')">
+        <img src="https://cdn-icons-png.flaticon.com/512/1006/1006771.png" alt="Storage">
+        <h2>Склад</h2>
+        <small>Учет остатков</small>
+    </div>
+	
+	<div class="card" onclick="openSite('comment.html')">
+        <img src="https://cdn-icons-png.flaticon.com/512/3716/3716503.png" alt="Feedback">
+        <h2>Онлайн-приёмная</h2>
+        <small>Обратная связь</small>
+    </div>
+
+<!--    <div class="card" onclick="openSite('#')">
+        <img src="https://cdn-icons-png.flaticon.com/512/1162/1162456.png" alt="Reports">
+        <h2>Отчеты</h2>
+        <small>Статистика продаж</small>
+    </div> -->
 </div>
 
 <script>
     function openSite(url) {
-        // Просто открываем сайт, ничего не удаляя из памяти
+        if (url === '#') {
+            alert("Ссылка еще не настроена.");
+            return;
+        }
         window.open(url, '_blank');
     }
 </script>
