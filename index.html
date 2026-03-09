@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon_iva.ico" type="image/x-icon">
+    <link rel="icon" href="favicon_ivo.ico" type="image/x-icon">
     <title>Мой рабочий кабинет</title>
     <style>
         body {
@@ -20,7 +20,6 @@
         
         h1 { margin-top: 40px; margin-bottom: 40px; font-weight: 300; letter-spacing: 2px; }
 
-        /* Сетка: 3 колонки для десктопа */
         .container { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
@@ -38,8 +37,7 @@
             width: 240px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            text-decoration: none;
-            color: white;
+            position: relative; /* Для позиционирования подсказок */
         }
 
         .card:hover {
@@ -60,13 +58,66 @@
         h2 { margin: 10px 0; font-size: 20px; font-weight: 400; }
         small { color: #aaa; }
 
-        /* Адаптивность */
-        @media (max-width: 900px) {
-            .container { grid-template-columns: repeat(2, 1fr); }
+        /* Стили для иконки вопроса */
+        .help-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 22px;
+            height: 22px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            cursor: help;
+            transition: 0.3s;
+            z-index: 5;
         }
-        @media (max-width: 600px) {
+
+        .help-icon:hover {
+            background: #00d2ff;
+            color: #1e1e2f;
+            border-color: #fff;
+        }
+
+        /* Выплывающая подсказка */
+        .tooltip {
+            visibility: hidden;
+            width: 250px;
+            background-color: #2d3436;
+            color: #fff;
+            text-align: left;
+            border: 1px solid #00d2ff;
+            border-radius: 10px;
+            padding: 12px;
+            position: absolute;
+            z-index: 10;
+            bottom: 110%; 
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            font-size: 13px;
+            pointer-events: none; /* Чтобы не мешала клику */
+        }
+
+        .help-icon:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .tooltip b { color: #00d2ff; display: block; margin-bottom: 5px; }
+
+        @media (max-width: 900px) { .container { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { 
             .container { grid-template-columns: 1fr; }
-            h1 { font-size: 24px; text-align: center; }
+            .tooltip { width: 200px; left: auto; right: 0; transform: none; }
+            .help-icon:hover .tooltip { transform: translateY(-5px); }
         }
     </style>
 </head>
@@ -75,58 +126,85 @@
 <h1>РАБОЧИЙ КАБИНЕТ</h1>
 
 <div class="container">
-    <div class="card" onclick="openSite('https://infokom285.github.io/vostok85/index.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/3426/3426631.png" alt="Math">
-        <h2>Математика</h2>
-        <small>Перейти к сайту</small>
+    <div class="card">
+        <div onclick="openSite('https://infokom285.github.io/vostok85/index.html')">
+            <img src="https://cdn-icons-png.flaticon.com/512/3426/3426631.png" alt="Math">
+            <h2>Математика</h2>
+            <small>Перейти к сайту</small>
+        </div>
+        <div class="help-icon">?
+            <div class="tooltip"><b>Математика</b>Расчеты, формулы и инструменты для работы с данными в реальном времени.</div>
+        </div>
     </div>
 
-    <div class="card" onclick="openSite('https://infokom285.github.io/vostok280/index.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/2830/2830305.png" alt="Gov">
-        <h2>Гос. услуги</h2>
-        <small>Перейти к сайту</small>
+    <div class="card">
+        <div onclick="openSite('https://infokom285.github.io/vostok280/index.html')">
+            <img src="https://cdn-icons-png.flaticon.com/512/2830/2830305.png" alt="Gov">
+            <h2>Гос. услуги</h2>
+            <small>Перейти к сайту</small>
+        </div>
+        <div class="help-icon">?
+            <div class="tooltip"><b>Гос. услуги</b>Быстрый доступ к порталу и справочной информации для оформления документов.</div>
+        </div>
     </div>
 
-    <div class="card" onclick="openSite('https://infokom285.github.io/vostok/index.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/2092/2092663.png" alt="Parts">
-        <h2>Запчасти</h2>
-        <small>Сайт в рублях</small>
+    <div class="card">
+        <div onclick="openSite('https://infokom285.github.io/vostok/index.html')">
+            <img src="https://cdn-icons-png.flaticon.com/512/2092/2092663.png" alt="Parts">
+            <h2>Запчасти</h2>
+            <small>Сайт в рублях</small>
+        </div>
+        <div class="help-icon">?
+            <div class="tooltip"><b>Запчасти</b>Каталог комплектующих с актуальными ценами в валюте RUB.</div>
+        </div>
     </div>
 
-    <div class="card" onclick="openSite('https://infokom285.github.io/vostok280/index.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Infokom">
-        <h2>Инфоком</h2>
-        <small>Сайт в евро</small>
+    <div class="card">
+        <div onclick="openSite('https://infokom285.github.io/vostok280/index.html')">
+            <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Infokom">
+            <h2>Инфоком</h2>
+            <small>Сайт в евро</small>
+        </div>
+        <div class="help-icon">?
+            <div class="tooltip"><b>Инфоком</b>Основной портал с расценками в EUR для международных операций.</div>
+        </div>
     </div>
 
-    <div class="card" onclick="openSite('https://infokom285.github.io/vs/index.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/1006/1006771.png" alt="Storage">
-        <h2>Склад</h2>
-        <small>Учет остатков</small>
-    </div>
-	
-	<div class="card" onclick="window.open('https://meet.jit.si/InfokomVostok_Official_Reception', '_blank')">
-        <img src="https://cdn-icons-png.flaticon.com/512/3716/3716503.png" alt="Feedback">
-        <h2>Онлайн-приёмная</h2>
-        <small>Обратная связь</small>
-    </div>
-	
-<!--	<div class="card" onclick="openSite('comment.html')">
-        <img src="https://cdn-icons-png.flaticon.com/512/3716/3716503.png" alt="Feedback">
-        <h2>Онлайн-приёмная</h2>
-        <small>Обратная связь</small>
+    <div class="card">
+        <div onclick="openSite('https://infokom285.github.io/vs/index.html')">
+            <img src="https://cdn-icons-png.flaticon.com/512/1006/1006771.png" alt="Storage">
+            <h2>Склад</h2>
+            <small>Учет остатков</small>
+        </div>
+        <div class="help-icon">?
+            <div class="tooltip"><b>Склад</b>Система контроля наличия товара и инвентаризации на складах.</div>
+        </div>
     </div>
 
-    <div class="card" onclick="openSite('#')">
-        <img src="https://cdn-icons-png.flaticon.com/512/1162/1162456.png" alt="Reports">
-        <h2>Отчеты</h2>
-        <small>Статистика продаж</small>
-    </div> -->
+    <div class="card">
+        <div onclick="openSite('https://meet.jit.si/InfokomVostok_Official_Reception')">
+            <img src="https://cdn-icons-png.flaticon.com/512/3716/3716503.png" alt="Feedback">
+            <h2>Онлайн-приёмная</h2>
+            <small>Обратная связь</small>
+        </div>
+        <div class="help-icon">?
+            <div class="tooltip">
+                <b>Видеосвязь и Чат</b>
+                • Нажмите на карту для входа.<br>
+                • Разрешите доступ к камере.<br>
+                • Кнопку «Организатор» жать <u>не нужно</u>.<br>
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 8px 0;">
+                <b>При плохой связи:</b><br>
+                Выключите камеру (иконка камеры) и используйте только <b>голос и чат</b>. Это восстановит стабильность.
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
     function openSite(url) {
-        if (url === '#') {
+        if (!url || url === '#') {
             alert("Ссылка еще не настроена.");
             return;
         }
